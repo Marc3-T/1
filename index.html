@@ -492,7 +492,7 @@
         <div class="photo-container" id="photoContainer">
             <div class="photo-slider" id="photoSlider">
                 <!-- Las imágenes se agregarán dinámicamente con JavaScript -->
-                <div class="photo-counter" id="photoCounter">1 / 4</div>
+                <div class="photo-counter" id="photoCounter">1 / 19</div>
             </div>
         </div>
         
@@ -514,35 +514,59 @@
             const photoSlider = document.getElementById('photoSlider');
             const photoCounter = document.getElementById('photoCounter');
             
-            // Lista de imágenes (puedes agregar más cambiando los nombres)
-            const imagenes = [
-                '1a.JPG',
-                '2a.JPG',
-                '3a.JPG',
-                '4a.JPG',
-                '5a.JPG'
-            ];
+            // Lista de imágenes de 1a.JPG a 19a.JPG, excluyendo 17a.JPG y usando 17a.PNG
+            const imagenes = [];
+            
+            // Generar nombres de imágenes del 1 al 19
+            for (let i = 1; i <= 19; i++) {
+                if (i === 17) {
+                    imagenes.push('17a.PNG');  // El 17 es PNG
+                } else {
+                    imagenes.push(i + 'a.JPG');  // Los demás son JPG
+                }
+            }
             
             let currentImageIndex = 0;
             let imageInterval;
+            let totalImages = 0; // Contador de imágenes que realmente se cargan
             
             // Función para crear el carrusel de imágenes
             function createImageSlider() {
                 // Limpiar el slider
                 photoSlider.innerHTML = '';
                 
+                // Contador para imágenes cargadas exitosamente
+                totalImages = 0;
+                
                 // Crear slides para cada imagen
                 imagenes.forEach((imagen, index) => {
                     const slide = document.createElement('div');
                     slide.className = 'photo-slide';
-                    if (index === 0) slide.classList.add('active');
+                    slide.style.display = 'none'; // Ocultar inicialmente
                     
-                    const img = document.createElement('img');
+                    const img = new Image();
                     img.src = imagen;
                     img.alt = `Nuestro recuerdo ${index + 1}`;
+                    
+                    // Cuando la imagen se carga exitosamente
+                    img.onload = function() {
+                        slide.style.display = 'flex';
+                        if (totalImages === 0) {
+                            slide.classList.add('active');
+                        }
+                        totalImages++;
+                        
+                        // Actualizar contador solo si esta es la primera imagen
+                        if (index === 0) {
+                            updateCounter();
+                        }
+                    };
+                    
+                    // Si hay error al cargar la imagen
                     img.onerror = function() {
-                        // Si la imagen no existe, mostrar un placeholder
-                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="280" height="300" viewBox="0 0 280 300"><rect width="280" height="300" fill="%23ffcfe0"/><text x="50%" y="50%" font-family="Arial" font-size="24" fill="%23d46a8f" text-anchor="middle" dy=".3em">Foto ' + (index + 1) + '</text></svg>';
+                        console.log(`Imagen no encontrada: ${imagen}`);
+                        // No incrementar totalImages para esta imagen
+                        slide.remove(); // Eliminar el slide si la imagen no existe
                     };
                     
                     slide.appendChild(img);
@@ -552,13 +576,28 @@
                 // Agregar el contador
                 photoSlider.appendChild(photoCounter);
                 
-                // Actualizar contador
-                updateCounter();
+                // Si no hay imágenes después de 1 segundo, mostrar placeholder
+                setTimeout(() => {
+                    if (totalImages === 0) {
+                        const placeholder = document.createElement('div');
+                        placeholder.className = 'photo-slide active';
+                        placeholder.style.display = 'flex';
+                        placeholder.style.background = 'linear-gradient(135deg, #ffcfe0 0%, #ffb1ca 100%)';
+                        placeholder.style.alignItems = 'center';
+                        placeholder.style.justifyContent = 'center';
+                        placeholder.style.color = '#d46a8f';
+                        placeholder.style.fontSize = '20px';
+                        placeholder.innerHTML = '<div style="text-align: center;"><i class="fas fa-heart" style="font-size: 60px; margin-bottom: 20px;"></i><p>Nuestros recuerdos</p></div>';
+                        photoSlider.appendChild(placeholder);
+                        totalImages = 1;
+                        updateCounter();
+                    }
+                }, 1000);
             }
             
             // Función para cambiar a la siguiente imagen
             function nextImage() {
-                const slides = document.querySelectorAll('.photo-slide');
+                const slides = document.querySelectorAll('.photo-slide[style*="display: flex"]');
                 if (slides.length === 0) return;
                 
                 // Ocultar imagen actual
@@ -576,13 +615,15 @@
             
             // Función para actualizar el contador
             function updateCounter() {
-                photoCounter.textContent = `${currentImageIndex + 1} / ${imagenes.length}`;
+                const slides = document.querySelectorAll('.photo-slide[style*="display: flex"]');
+                const actualTotal = slides.length || totalImages || imagenes.length;
+                photoCounter.textContent = `${currentImageIndex + 1} / ${actualTotal}`;
             }
             
             // Función para iniciar el cambio automático de imágenes
             function startImageSlider() {
-                // Cambiar imagen cada 4 segundos
-                imageInterval = setInterval(nextImage, 4000);
+                // Cambiar imagen cada 3 segundos (un poco más rápido para 19 imágenes)
+                imageInterval = setInterval(nextImage, 3000);
             }
             
             // Función para detener el cambio automático (opcional)
