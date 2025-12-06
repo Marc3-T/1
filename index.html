@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>❤️ Un año con la mujer de mi vida ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Patrick Hand', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffd1dc 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #7a4b5a;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+        
+        /* Corazones animados en el fondo */
+        .hearts-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart-bg {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 77, 109, 0.3);
+            opacity: 0;
+            animation: floatUp 15s linear infinite;
+            font-family: 'Patrick Hand', cursive;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #d46a8f;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            font-size: 2.8rem; /* Un poco más grande para la nueva fuente */
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 1px;
+        }
+        
+        /* Emoji de carta completamente separado y arriba de todo */
+        .emoji-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            z-index: 1000;
+        }
+        
+        .floating-emoji {
+            font-size: 80px;
+            animation: floatEmoji 3s ease-in-out infinite;
+            text-shadow: 0 5px 15px rgba(212, 106, 143, 0.4);
+            position: relative;
+            z-index: 1001;
+            transform: translateY(-10px);
+            font-family: 'Patrick Hand', cursive;
+        }
+        
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(-10px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+        
+        .envelope-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 20px auto 40px;
+            perspective: 1000px;
+            z-index: 10;
+        }
+        
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out;
+        }
+        
+        .envelope.open {
+            transform: rotateX(180deg);
+        }
+        
+        .envelope-front, .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(212, 106, 143, 0.3);
+        }
+        
+        .envelope-front {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff8fa3 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transform: rotateX(0deg);
+        }
+        
+        .envelope-back {
+            background: #fff0f5;
+            transform: rotateX(180deg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+        }
+        
+        /* Texto dentro del sobre */
+        .envelope-text {
+            color: white;
+            font-size: 24px; /* Más grande para mejor legibilidad */
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            margin-top: 10px;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
+        }
+        
+        .open-btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 22px; /* Más grande para la nueva fuente */
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(212, 106, 143, 0.4);
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+            position: relative;
+            z-index: 10;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
+        }
+        
+        .open-btn:hover, .open-btn:active {
+            background-color: #ff3355;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 106, 143, 0.5);
+        }
+        
+        .open-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff8fa3 0%, #ff6b8b 100%);
+            clip-path: polygon(0% 0%, 50% 50%, 100% 0%);
+            border-radius: 10px 10px 0 0;
+            z-index: 3;
+            transform-origin: top;
+            transition: transform 1s ease-in-out;
+        }
+        
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+        
+        .message {
+            width: 280px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            line-height: 1.6;
+            font-size: 22px; /* Más grande para la nueva fuente */
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+            max-height: 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 5;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
+        }
+        
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 1000px;
+            transition-delay: 1s;
+        }
+        
+        .message h2 {
+            color: #d46a8f;
+            margin-bottom: 20px;
+            font-size: 28px; 
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.8px;
+        }
+        
+        .message p {
+            margin-bottom: 15px;
+        }
+        
+        .signature {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 28px; 
+            color: #ff4d6d;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .photo-container {
+            width: 280px;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 106, 143, 0.4);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease, transform 1s ease;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .photo-container.show {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 1.5s;
+        }
+        
+        .photo-slider {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        
+        .photo-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .photo-slide.active {
+            opacity: 1;
+        }
+        
+        .photo-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        .photo-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 16px;
+            color: #d46a8f;
+            font-family: 'Patrick Hand', cursive;
+            z-index: 10;
+        }
+        
+        .instructions {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 20px; /* Más grande para la nueva fuente */
+            color: #a85c7a;
+            font-style: italic;
+            position: relative;
+            z-index: 5;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #a85c7a;
+            font-size: 18px; /* Más grande para la nueva fuente */
+            position: relative;
+            z-index: 5;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .floating-emoji {
+                font-size: 70px;
+            }
+            
+            .envelope-container {
+                width: 280px;
+                height: 190px;
+            }
+            
+            .envelope-text {
+                font-size: 22px;
+            }
+            
+            .message, .photo-container {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .message {
+                font-size: 20px;
+                padding: 25px;
+            }
+            
+            .message h2 {
+                font-size: 24px;
+            }
+            
+            .signature {
+                font-size: 24px;
+            }
+            
+            .open-btn {
+                padding: 12px 24px;
+                font-size: 20px;
+            }
+            
+            .instructions {
+                font-size: 18px;
+            }
+            
+            .footer {
+                font-size: 16px;
+            }
+            
+            .heart-bg {
+                font-size: 20px;
+            }
+        }
+        
+        /* Animación para el texto dentro de la carta */
+        .letter-content {
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 20px;
+            text-align: center;
+            color: #7a4b5a;
+        }
+        
+        .letter-content h2 {
+            font-size: 24px;
+            color: #d46a8f;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Ajuste para emoji cuando se abre la carta */
+        .emoji-opened {
+            animation: emojiOpened 2s ease forwards;
+        }
+        
+        @keyframes emojiOpened {
+            0% { transform: translateY(-10px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+            100% { transform: translateY(-10px) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con corazones animados -->
+    <div class="hearts-background" id="heartsBackground"></div>
+    
+    <div class="container">
+        <h1>❤️ Un año con el amor de mi vida ❤️</h1>
+        
+        <div class="emoji-container">
+            <div class="floating-emoji" id="floatingEmoji">💌</div>
+        </div>
+        
+        <div class="envelope-container">
+            <div class="envelope" id="envelope">
+                <div class="envelope-front">
+                    <div class="envelope-text"></div>
+                </div>
+                <div class="flap"></div>
+                <div class="envelope-back">
+                    <div class="letter-content">
+                        <h2>Para el amor de mi vida</h2>
+                        <p>Cada día de mi vida te recordaré lo muy importante que eres para mí mi amor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="open-btn" id="openBtn">Abrir</button>
+        
+        <div class="message" id="message">
+            <h2>Mi Princesa hermosa,</h2>
+            <p>En este día tan especial, se cumple un año juntos, un año increíble llena de momentos y recuerdos hermosos llenos de amor a tu lado mi amor</p>
+            <p>Cada instante que paso contigo es hermoso, recuerdo como si fuera ayer nuestra primera cita, desde el primer instante en que te vi, supe que eras la mujer de mi vida</p>
+            <p>Eres todo para mi mi amor, eres mi motor, eres la razón por la que cada día me levanto con muchas ganas de seguir esforzandome para lograr nuestros objetivos, eres el amor de mi vida</p>
+            <p>Gracias por este año increíble y maravilloso a tu lado, este solo es el comienzo de nuestra hermosa historia juntos</p>
+            <p>Me siento muy afortunado de tenerte,</p>
+            <div class="signature">Amor de mi vida</div>
+        </div>
+        
+        <div class="photo-container" id="photoContainer">
+            <div class="photo-slider" id="photoSlider">
+                <!-- Las imágenes se agregarán dinámicamente con JavaScript -->
+                <div class="photo-counter" id="photoCounter">1 / 4</div>
+            </div>
+        </div>
+        
+        <p class="instructions">Esta página fue hecha con mucho amor</p>
+        
+        <div class="footer">
+            <p>Para mi mujer hermosa, nuestro primer aniversario ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.getElementById('envelope');
+            const openBtn = document.getElementById('openBtn');
+            const message = document.getElementById('message');
+            const photoContainer = document.getElementById('photoContainer');
+            const heartsBackground = document.getElementById('heartsBackground');
+            const floatingEmoji = document.getElementById('floatingEmoji');
+            const photoSlider = document.getElementById('photoSlider');
+            const photoCounter = document.getElementById('photoCounter');
+            
+            // Lista de imágenes (puedes agregar más cambiando los nombres)
+            const imagenes = [
+                '1a.JPG',
+                '2a.JPG',
+                '3a.JPG',
+                '4a.JPG',
+                '5a.JPG'
+            ];
+            
+            let currentImageIndex = 0;
+            let imageInterval;
+            
+            // Función para crear el carrusel de imágenes
+            function createImageSlider() {
+                // Limpiar el slider
+                photoSlider.innerHTML = '';
+                
+                // Crear slides para cada imagen
+                imagenes.forEach((imagen, index) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'photo-slide';
+                    if (index === 0) slide.classList.add('active');
+                    
+                    const img = document.createElement('img');
+                    img.src = imagen;
+                    img.alt = `Nuestro recuerdo ${index + 1}`;
+                    img.onerror = function() {
+                        // Si la imagen no existe, mostrar un placeholder
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="280" height="300" viewBox="0 0 280 300"><rect width="280" height="300" fill="%23ffcfe0"/><text x="50%" y="50%" font-family="Arial" font-size="24" fill="%23d46a8f" text-anchor="middle" dy=".3em">Foto ' + (index + 1) + '</text></svg>';
+                    };
+                    
+                    slide.appendChild(img);
+                    photoSlider.appendChild(slide);
+                });
+                
+                // Agregar el contador
+                photoSlider.appendChild(photoCounter);
+                
+                // Actualizar contador
+                updateCounter();
+            }
+            
+            // Función para cambiar a la siguiente imagen
+            function nextImage() {
+                const slides = document.querySelectorAll('.photo-slide');
+                if (slides.length === 0) return;
+                
+                // Ocultar imagen actual
+                slides[currentImageIndex].classList.remove('active');
+                
+                // Calcular siguiente índice
+                currentImageIndex = (currentImageIndex + 1) % slides.length;
+                
+                // Mostrar siguiente imagen
+                slides[currentImageIndex].classList.add('active');
+                
+                // Actualizar contador
+                updateCounter();
+            }
+            
+            // Función para actualizar el contador
+            function updateCounter() {
+                photoCounter.textContent = `${currentImageIndex + 1} / ${imagenes.length}`;
+            }
+            
+            // Función para iniciar el cambio automático de imágenes
+            function startImageSlider() {
+                // Cambiar imagen cada 4 segundos
+                imageInterval = setInterval(nextImage, 4000);
+            }
+            
+            // Función para detener el cambio automático (opcional)
+            function stopImageSlider() {
+                if (imageInterval) {
+                    clearInterval(imageInterval);
+                }
+            }
+            
+            // Crear corazones animados en el fondo
+            function createFloatingHearts() {
+                const heartIcons = ['❤️', '💖', '💗', '💓', '💞', '💕', '💘', '💝'];
+                const numberOfHearts = 15;
+                
+                for (let i = 0; i < numberOfHearts; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-bg');
+                    heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    
+                    // Posición aleatoria
+                    const leftPosition = Math.random() * 100;
+                    heart.style.left = `${leftPosition}%`;
+                    
+                    // Tamaño aleatorio
+                    const size = 20 + Math.random() * 25;
+                    heart.style.fontSize = `${size}px`;
+                    
+                    // Retraso aleatorio en la animación
+                    const delay = Math.random() * 12;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    // Duración de animación aleatoria
+                    const duration = 12 + Math.random() * 8;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    // Color con opacidad aleatoria
+                    const opacity = 0.2 + Math.random() * 0.4;
+                    heart.style.color = `rgba(255, 77, 109, ${opacity})`;
+                    
+                    heartsBackground.appendChild(heart);
+                }
+            }
+            
+            // Función para abrir la carta
+            function openCard() {
+                envelope.classList.add('open');
+                floatingEmoji.classList.add('emoji-opened');
+                
+                // Mostrar mensaje después de la animación del sobre
+                setTimeout(() => {
+                    message.classList.add('show');
+                }, 1000);
+                
+                // Mostrar foto después
+                setTimeout(() => {
+                    photoContainer.classList.add('show');
+                    // Iniciar el cambio automático de imágenes cuando se muestra el contenedor
+                    startImageSlider();
+                }, 1500);
+                
+                // Cambiar texto del botón
+                openBtn.textContent = "¡Carta abierta! ❤️";
+                openBtn.disabled = true;
+                openBtn.style.backgroundColor = "#ffb6c1";
+                
+                // Reproducir sonido de carta (opcional)
+                playLetterSound();
+                
+                // Añadir más corazones cuando se abre la carta
+                addExtraHearts();
+            }
+            
+            // Añadir corazones extra cuando se abre la carta
+            function addExtraHearts() {
+                const heartIcons = ['❤️', '💖', '💗', '💓'];
+                
+                for (let i = 0; i < 8; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-bg');
+                    heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    
+                    // Posición aleatoria
+                    const leftPosition = 20 + Math.random() * 60;
+                    heart.style.left = `${leftPosition}%`;
+                    
+                    // Tamaño
+                    heart.style.fontSize = `30px`;
+                    
+                    // Color más intenso
+                    heart.style.color = `rgba(255, 77, 109, 0.6)`;
+                    
+                    // Animación más rápida
+                    heart.style.animationDuration = `8s`;
+                    
+                    heartsBackground.appendChild(heart);
+                    
+                    // Remover el corazón después de que termine la animación
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.remove();
+                        }
+                    }, 8000);
+                }
+            }
+            
+            // Función para reproducir sonido de carta
+            function playLetterSound() {
+                // Crear un contexto de audio
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Crear un oscilador para el sonido
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Configurar el sonido
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // Nota Do
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // Nota Mi
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // Nota Sol
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+            
+            // Event listeners
+            envelope.addEventListener('click', openCard);
+            openBtn.addEventListener('click', openCard);
+            
+            // Para dispositivos táctiles, mejorar la interacción
+            envelope.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            envelope.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(1)';
+            });
+            
+            // Inicializar corazones flotantes
+            createFloatingHearts();
+            
+            // Crear el carrusel de imágenes
+            createImageSlider();
+            
+            // Mensaje especial en la consola
+            console.log("%c 💌 Para mi amor 💌", "color: #ff4d6d; font-size: 18px; font-weight: bold; font-family: 'Patrick Hand', cursive;");
+            console.log("%c Este año contigo ha sido el mejor de mi vida. Te amo.", "color: #d46a8f; font-size: 14px; font-family: 'Patrick Hand', cursive;");
+            
+            // Cambiar manualmente al hacer clic en la imagen
+            photoSlider.addEventListener('click', function() {
+                nextImage();
+                // Reiniciar el intervalo
+                stopImageSlider();
+                startImageSlider();
+            });
+        });
+    </script>
+</body>
+</html>
